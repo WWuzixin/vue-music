@@ -1,6 +1,7 @@
 <template>
   <div>
     <Header></Header>
+    <slidebar></slidebar>
     <div class="default-list">
       <div class="default-items"><i class="info icon-music"></i><router-link tag="p" to="">我的音乐 <i class="icon-volume-medium info1-1"></i></router-link></div>
       <div class="default-items"><i class="info icon-zuijinplay"></i><router-link tag="p" to="">最近播放</router-link></div>
@@ -16,6 +17,7 @@
 import Header from '@/components/header/header'
 import Footer from '@/components/footer/footer'
 import myList from '@/components/my-songlist/my-songlist'
+import slidebar from '@/components/slidebar/slidebar'
 
 export default {
   data () {
@@ -25,7 +27,8 @@ export default {
   components: {
     Header,
     Footer,
-    myList
+    myList,
+    slidebar
   }
 }
 </script>
