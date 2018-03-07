@@ -1,10 +1,10 @@
 <template>
   <div class="footer">
-    <router-link to="/index" tag="div" class="tarbar">
+    <router-link to="/findmusic" tag="div" class="tarbar">
       <i class="icon-wangyi icon-info"></i>
       <span>发现音乐</span>
     </router-link>
-    <router-link to="/songlist" tag="div" class="tarbar">
+    <router-link to="/mymusic" tag="div" class="tarbar">
       <i class="icon-music icon-info"></i>
       <span>我的音乐</span>
     </router-link>
@@ -50,7 +50,7 @@ export default {
   .icon-info
     font-size: .24rem
   &:first-child
-    margin-left: .15rem
+    margin-left: .3rem
   &:last-child
-    margin-right: .15rem
+    margin-right: .3rem
 </style>

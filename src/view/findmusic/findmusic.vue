@@ -17,8 +17,9 @@
   <!-- 中间tab -->
   <div class="tabbottom">
     <router-link to="" tag="div" class="tb-item" v-for="item in tabB">
-      <span class="outside-circle">
+      <span class="outside-circle" style="position:relative">
           <i class="icon-info" :class="item.className"></i>
+          <span style="position:absolute;left: 50%;top: 50%;transform:translate(-50%,-20%);color:#6c2f2f">{{item.date}}</span>
         </span> {{item.title}}
     </router-link>
   </div>
@@ -54,7 +55,8 @@ export default {
         title: '私人FM'
       }, {
         className: 'icon-date',
-        title: '每日推荐'
+        title: '每日推荐',
+        date: 0
       }, {
         className: 'icon-erji',
         title: '歌单'
@@ -83,6 +85,12 @@ export default {
       }]
     }
   },
+
+  created () {
+    let date = new Date().getDate()
+    this.tabB[1].date = date
+  },
+
   components: {
     Header,
     slidebar,
