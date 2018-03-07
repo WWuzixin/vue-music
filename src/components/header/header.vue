@@ -1,21 +1,26 @@
 <template>
-  <div>
-    <div class="header-wrapper">
-      <i class="left-more icon-menu"></i>
-      <div class="center-list">
-        <router-link to="" tag="i" class="icon-music"></router-link>
-        <router-link to="" tag="i" class="icon-wangyi"></router-link>
-        <router-link to="" tag="i" class="icon-community"></router-link>
-      </div>
-      <i class="right-search icon-search"></i>
+<div>
+  <div class="header-wrapper">
+    <i class="left-more icon-menu" @click="openSlideMenu"></i>
+    <div class="center-list">
+      <router-link to="" tag="i" class="icon-music"></router-link>
+      <router-link to="" tag="i" class="icon-wangyi"></router-link>
+      <router-link to="" tag="i" class="icon-community"></router-link>
     </div>
+    <i class="right-search icon-search"></i>
   </div>
+</div>
 </template>
 
 <script>
+import bus from '../../assets/bus'
 export default {
   data () {
-    return {
+    return {}
+  },
+  methods: {
+    openSlideMenu () {
+      bus.$emit('showMenu', 'true')
     }
   }
 }
@@ -43,10 +48,10 @@ export default {
   justify-content: space-between
   align-items: center
   & .router-link-active
-    color: #f2f4f6
+    color: #ffffff
 
 .icon-music, .icon-wangyi, .icon-community
-  color: #ffffff
+  color: #333
   font-size: .22rem
   margin: 0 .12rem
 

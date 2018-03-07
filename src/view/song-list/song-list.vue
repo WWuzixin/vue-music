@@ -1,32 +1,41 @@
 <template>
-  <div>
-    <Header></Header>
-    <slidebar></slidebar>
-    <div class="default-list">
-      <div class="default-items"><i class="info icon-music"></i><router-link tag="p" to="">我的音乐 <i class="icon-volume-medium info1-1"></i></router-link></div>
-      <div class="default-items"><i class="info icon-zuijinplay"></i><router-link tag="p" to="">最近播放</router-link></div>
-      <div class="default-items"><i class="info icon-diantai"></i><router-link tag="p" to="">我的电台</router-link></div>
-      <div class="default-items"><i class="info icon-collect"></i><router-link tag="p" to="">我的收藏</router-link></div>
+<div>
+  <Header></Header>
+  <slidebar></slidebar>
+  <div class="default-list">
+    <div class="default-items"><i class="info icon-music"></i>
+      <router-link tag="p" to="">我的音乐 <i class="icon-volume-medium info1-1"></i></router-link>
     </div>
-    <myList></myList>
-    <Footer></Footer>
+    <div class="default-items"><i class="info icon-zuijinplay"></i>
+      <router-link tag="p" to="">最近播放</router-link>
+    </div>
+    <div class="default-items"><i class="info icon-diantai"></i>
+      <router-link tag="p" to="">我的电台</router-link>
+    </div>
+    <div class="default-items"><i class="info icon-collect"></i>
+      <router-link tag="p" to="">我的收藏</router-link>
+    </div>
   </div>
+  <myList></myList>
+  <Footer></Footer>
+</div>
 </template>
 
 <script>
 import Header from '@/components/header/header'
 import Footer from '@/components/footer/footer'
+import player from '@/components/player/player'
 import myList from '@/components/my-songlist/my-songlist'
 import slidebar from '@/components/slidebar/slidebar'
 
 export default {
   data () {
-    return {
-    }
+    return {}
   },
   components: {
     Header,
     Footer,
+    player,
     myList,
     slidebar
   }

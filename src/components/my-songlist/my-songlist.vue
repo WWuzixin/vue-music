@@ -1,50 +1,74 @@
 <template>
-  <div class="my-list">
-    <div class="title">
-      <p @click="isShow1 = !isShow1"><i class="icon-down" :class="{'icon-rotate':!isShow1}"></i>我创建的歌单</p><i class="icon-setting" @click="isShow3 = true"></i>
-    </div>
-    <div class="content" v-show="isShow1">
-      <div class="items" v-for="item in data1">
-        <div class="item-left"><img src="" alt=""></div>
-        <div class="item-right">
-          <p class="ir-first">{{item.name}}</p>
-          <p class="ir-second">{{item.num}}首</p>
-        </div>
+<div class="my-list">
+  <div class="title">
+    <p @click="isShow1 = !isShow1"><i class="icon-down" :class="{'icon-rotate':!isShow1}"></i>我创建的歌单</p><i class="icon-setting" @click="isShow3 = true"></i>
+  </div>
+  <div class="content" v-show="isShow1">
+    <div class="items" v-for="item in data1">
+      <div class="item-left"><img src="" alt=""></div>
+      <div class="item-right">
+        <p class="ir-first">{{item.name}}</p>
+        <p class="ir-second">{{item.num}}首</p>
       </div>
-    </div>
-    <div class="title">
-      <p @click="isShow2 = !isShow2"><i class="icon-down" :class="{'icon-rotate':!isShow2}"></i>我收藏的歌单</p><i class="icon-setting" @click="isShow3 = true"></i>
-    </div>
-    <div class="content" v-show="isShow2">
-      <div class="items" v-for="item in data2">
-        <div class="item-left"><img src="" alt=""></div>
-        <div class="item-right">
-          <p class="ir-first">{{item.name}}</p>
-          <p class="ir-second">{{item.num}}首</p>
-        </div>
-      </div>
-    </div>
-    <div class="edit-list">
-      <div class="edit-wrap" :class="{'isShow':isShow3}">
-        <h2>我创建的歌单(2)</h2>
-        <div class="edit-items"><i class="icon-add"></i><p>新建歌单</p></div>
-        <div class="edit-items"><i class="icon-delete"></i><p>删除</p></div>
-      </div>
-      <div class="mask" v-show="isShow3" @click.self="isShow3 = !isShow3"></div>
     </div>
   </div>
+  <div class="title">
+    <p @click="isShow2 = !isShow2"><i class="icon-down" :class="{'icon-rotate':!isShow2}"></i>我收藏的歌单</p><i class="icon-setting" @click="isShow3 = true"></i>
+  </div>
+  <div class="content" v-show="isShow2">
+    <div class="items" v-for="item in data2">
+      <div class="item-left"><img src="" alt=""></div>
+      <div class="item-right">
+        <p class="ir-first">{{item.name}}</p>
+        <p class="ir-second">{{item.num}}首</p>
+      </div>
+    </div>
+  </div>
+  <div class="edit-list">
+    <div class="edit-wrap" :class="{'isShow':isShow3}">
+      <h2>我创建的歌单(2)</h2>
+      <div class="edit-items"><i class="icon-add"></i>
+        <p>新建歌单</p>
+      </div>
+      <div class="edit-items"><i class="icon-delete"></i>
+        <p>删除</p>
+      </div>
+    </div>
+    <div class="mask" v-show="isShow3" @click.self="isShow3 = !isShow3"></div>
+  </div>
+</div>
 </template>
 
 <script>
 export default {
   data () {
     return {
-      data1: [
-        {name: '我喜欢的音乐', num: 30}, {name: 'Taylor Swift', num: 30}, {name: '【电音】抖腿必备', num: 10}, {name: '周氏情歌（沉郁）', num: 50}
-      ],
-      data2: [
-        {name: 'MJ JB 断眉 戳爷 黄老板 萌徳 霉霉...', num: 213}, {name: 'Taylor Swift六连专歌曲', num: 110}, {name: '当周杰伦还仅仅是周杰伦的时候', num: 22}, {name: '超美侧颜J Fla翻唱集', num: 38}
-      ],
+      data1: [{
+        name: '我喜欢的音乐',
+        num: 30
+      }, {
+        name: 'Taylor Swift',
+        num: 30
+      }, {
+        name: '【电音】抖腿必备',
+        num: 10
+      }, {
+        name: '周氏情歌（沉郁）',
+        num: 50
+      }],
+      data2: [{
+        name: 'MJ JB 断眉 戳爷 黄老板 萌徳 霉霉...',
+        num: 213
+      }, {
+        name: 'Taylor Swift六连专歌曲',
+        num: 110
+      }, {
+        name: '当周杰伦还仅仅是周杰伦的时候',
+        num: 22
+      }, {
+        name: '超美侧颜J Fla翻唱集',
+        num: 38
+      }],
       isShow1: true,
       isShow2: true,
       isShow3: false
@@ -57,7 +81,7 @@ export default {
 p
   margin: 0
 .my-list
-  margin-bottom: .45rem
+  margin-bottom: .5rem
 .title
   font-size: .12rem
   line-height: .25rem
