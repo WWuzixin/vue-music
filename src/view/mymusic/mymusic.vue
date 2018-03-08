@@ -21,7 +21,7 @@
       <p @click="isShow1 = !isShow1"><i class="icon-down" :class="{'icon-rotate':!isShow1}"></i>我创建的歌单</p><i class="icon-setting" @click="isShow3 = true"></i>
     </div>
     <div class="content" v-show="isShow1">
-      <div class="items" v-for="item in data1">
+      <div class="items" v-for="item in data1" @click="showList(item)">
         <div class="item-left"><img src="" alt=""></div>
         <div class="item-right">
           <p class="ir-first">{{item.name}}</p>
@@ -65,6 +65,7 @@ import Footer from '@/components/footer/footer'
 import player from '@/components/player/player'
 import slidebar from '@/components/slidebar/slidebar'
 import songlist from '@/components/song-list/song-list'
+import bus from '../../assets/bus'
 
 export default {
   data () {
@@ -98,6 +99,12 @@ export default {
       isShow1: true,
       isShow2: true,
       isShow3: false
+    }
+  },
+  methods: {
+    showList (item) {
+      let arr = [item.name,'true']
+      bus.$emit('showList',arr)
     }
   },
   components: {
@@ -199,7 +206,7 @@ p
   position: fixed
   bottom: 0
   left: 0
-  z-index: 20
+  z-index: 25
   transition: all .5s
   transform: translateY(100%)
   -webkit-transform: translateY(100%)

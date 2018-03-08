@@ -35,6 +35,7 @@ export default {
   display: flex
   justify-content: space-between
   align-items: center
+  z-index: 23
   & .router-link-active
     color: #ffffff
 
