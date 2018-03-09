@@ -1,19 +1,20 @@
 <template>
 <div class="song-list" :class="{'show': showList}">
-  <div class="song-header">
+  <div class="song-header" ref="songHeader">
     <div to="" class="sh-left" @click="showList = !showList"><i class="icon-left"></i></div>
     <h2>歌单</h2>
     <div class="sh-right"><i class="icon-list-circle-small"></i></div>
+    <div class="head-img" ref="headImg" style="background-image: url('/static/images/demo3.jpg')"></div>
   </div>
-  <div class="content">
-    <div class="content-t">
+  <div class="content" @scroll="windowScroll">
+    <div class="content-t" style="background-image: url('/static/images/demo3.jpg')"  ref="contentT">
       <div class="content-top">
-        <div class="song-img"></div>
+        <div class="song-img" style="background-image: url('/static/images/demo3.jpg')"></div>
         <div class="songlist-name">
           <p class="sn-top">{{songTitle}}</p>
           <p class="sn-bottom">
             <span class="user-avatar">
-              <img src="/static/images/demo.jpg" alt="">
+              <img src="/static/images/demo2.jpg" alt="">
             </span>嘎吱脆 <i class="icon-right"></i>
           </p>
         </div>
@@ -79,33 +80,49 @@ export default {
         {name:'Love Paradise',singer:'陈慧琳',zhuanji: 'Stylish Index(第2版)'},
         {name:'Today Was a Fairytale',singer:'Taylor Swift',zhuanji: 'Today Was a Fairytale - Single'},
         {name:'For him',singer:'Troye Sivan/Allday',zhuanji: 'Blue Neighbourhood(Deluxe)'},
+        {name:'For him',singer:'Troye Sivan/Allday',zhuanji: 'Blue Neighbourhood(Deluxe)'},
         {name:'...Ready For It? (BloodPop® Remix)',singer:'Taylor Swift/BloodPop',zhuanji: '...Ready For It? (BloodPop® Remix)'},
+        {name:'For him',singer:'Troye Sivan/Allday',zhuanji: 'Blue Neighbourhood(Deluxe)'},
+        {name:'...Ready For It? (BloodPop® Remix)',singer:'Taylor Swift/BloodPop',zhuanji: '...Ready For It? (BloodPop® Remix)'},
+        {name:'For him',singer:'Troye Sivan/Allday',zhuanji: 'Blue Neighbourhood(Deluxe)'},
+        {name:'Today Was a Fairytale',singer:'Taylor Swift',zhuanji: 'Today Was a Fairytale - Single'},
+        {name:'Gotta Have You',singer:'The Weepies',zhuanji:'Say I Am You'},
+        {name:'你要的全拿走',singer:'胡彦斌',zhuanji: '覅忒好'},
+        {name:'Love Paradise',singer:'陈慧琳',zhuanji: 'Stylish Index(第2版)'}
       ],
       showList: false,
-      songTitle: '歌单'
+      songTitle: '歌单',
     }
   },
   mounted () {
     bus.$on('showList', res => (this.showList = res[1],this.songTitle = res[0]))
+  },
+  methods : {
+    windowScroll (event) {
+      let songHeader = this.$refs.songHeader.clientHeight
+      let contentT = this.$refs.contentT.clientHeight
+      let scrollTop =  event.target.scrollTop
+      let opacity = scrollTop / (contentT - songHeader) > 1 ? 1 : scrollTop / (contentT - songHeader)
+      this.$refs.headImg.style.opacity = opacity
+    }
   }
 }
 </script>
 
 <style lang="sass" scoped>
 .song-list
+  width: 100%
+  height: 100%
   position: fixed
   top: 0
   left: 0
-  right: 0
-  bottom: 0
   z-index: 20
-  overflow-x: auto
-  overflow-y: scroll
   transition: all .5s
   transform: translateY(100%)
 
 .show
   transform: translateY(0)
+
 .song-header
   padding: 0 .15rem
   height: .45rem
@@ -128,12 +145,28 @@ export default {
 .sh-right
   font-size: .22rem
   transform: rotate(-90deg)
+  .icon-list-circle-small
+    color: #ffffff
+
+.head-img
+  position: absolute
+  top: 0
+  left: 0
+  right: 0
+  bottom: 0
+  background-size: 5800%
+  background-position: center center
+  z-index: -1
+  opacity: 0
 
 .content
   margin-bottom: .5rem
+  height: 100%
+  overflow-y: scroll
 
 .content-t
-  background: #000
+  background-size: 5800%
+  background-position: center center
 
 .content-top
   display: flex
@@ -143,7 +176,7 @@ export default {
 .song-img
   width: 1.2rem
   height: 1.2rem
-  background: red
+  background-size: 100% 100%
 
 .songlist-name
   width: 2.2rem
@@ -204,6 +237,7 @@ export default {
 
 .content-b
   background: #ffffff
+  margin-bottom: .5rem
 
 .cb-header
   display: flex

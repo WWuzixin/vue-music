@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="box-circle">
+    <div class="box-circle" ref="boxCircle">
       <div class="box-img">
         <img src="/static/images/demo9.jpg" alt="">
       </div>
@@ -34,7 +34,7 @@ export default {
       var ranges = setInterval(() => {
         if (num < 100) {
           num ++
-          that.$refs.progressRange.style.width = num+"%"
+          that.$refs.progressRange.style.width = `${num}%`
         } else {
           clearInterval(ranges)
         }
@@ -46,13 +46,14 @@ export default {
     },
     mouseMove (event) {
       let pageX = event.targetTouches[0].pageX
-      let y = this.$refs.progressBtn.offsetLeft
       let boxLeftX = this.$refs.progressBox.offsetLeft
-      // console.log(pageX)
-      // console.log(boxLeftX)
-      let x = Math.floor((pageX + y)/boxLeftX )
-      // this.$refs.progressBtn.style.left = x+"%"
-      console.log(x)
+      let boxWidth = this.$refs.progressBox.offsetWidth
+      let progressBtn = this.$refs.progressBtn.clientWidth
+      let x = Math.floor((pageX - boxLeftX)/ boxWidth * 100)
+      x = x > 100 ? 100 : x
+      x = x < 0 ? 0 : x
+      let y = `calc(${x}% - progressBtn/2)`
+      this.$refs.progressBtn.style.left = y
     },
     mouseEnd (event) {
       console.log("ending")
@@ -64,8 +65,8 @@ export default {
 
 <style lang="sass">
 .box-circle
-  width: 3rem
-  height: 3rem
+  width: 2.5rem
+  height: 2.5rem
   background: rgb(51,51,51)
   border-radius: 50%
   margin: 0 auto
@@ -82,8 +83,8 @@ export default {
     transform: rotate(360deg)
 
 .box-img
-  width: 2rem
-  height: 2rem
+  width: 1.5rem
+  height: 1.5rem
   border-radius: 50%
   background: #ffffff
   position: absolute
@@ -111,8 +112,8 @@ export default {
   position: relative
 
 .progress-btn
-  width: .15rem
-  height: .15rem
+  width: .14rem
+  height: .14rem
   border-radius: 50%
   background: #333333
   display: block
