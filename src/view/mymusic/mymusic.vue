@@ -54,8 +54,8 @@
       <div class="mask" v-show="isShow3" @click.self="isShow3 = !isShow3"></div>
     </div>
   </div>
-  <Footer></Footer>
   <songlist></songlist>
+  <Footer></Footer>
 </div>
 </template>
 
@@ -103,8 +103,8 @@ export default {
   },
   methods: {
     showList (item) {
-      let arr = [item.name,'true']
-      bus.$emit('showList',arr)
+      let arr = [item.name, 'true']
+      bus.$emit('showList', arr)
     }
   },
   components: {

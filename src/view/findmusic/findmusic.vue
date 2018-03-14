@@ -9,11 +9,12 @@
     <router-link to="/login">电台</router-link>
   </div>
   <!-- 轮播图 -->
-  <div class="swiper-container" style="margin-top: .8rem">
-    <div class="swiper-wrapper">
-      <div class="swiper-slide" style="width:100%;height:1.5rem;border: 2px solid red"></div>
-    </div>
-  </div>
+  <swiper :options="swiperOptions" style="margin-top: .8rem;height:2rem">
+    <swiper-slide style="background-image: url('../../static/images/demo.jpg'); background-size: 100% 100%"></swiper-slide>
+    <swiper-slide style="background-image: url('../../static/images/demo5.jpg'); background-size: 100% 100%"></swiper-slide>
+    <swiper-slide style="background-image: url('../../static/images/demo7.jpg'); background-size: 100% 100%"></swiper-slide>
+    <div class="swiper-pagination" slot="pagination"></div>
+  </swiper>
   <!-- 中间tab -->
   <div class="tabbottom">
     <router-link to="" tag="div" class="tb-item" v-for="item in tabB">
@@ -44,9 +45,12 @@
 </template>
 
 <script>
+import 'swiper/dist/css/swiper.css'
+import 'swiper/dist/js/swiper.min.js'
 import Header from '@/components/header/header'
 import Footer from '@/components/footer/footer'
 import slidebar from '@/components/slidebar/slidebar'
+import { swiper, swiperSlide } from 'vue-awesome-swiper'
 export default {
   data () {
     return {
@@ -82,7 +86,17 @@ export default {
       }, {
         title: '【超燃BGM】听完你就五杀了',
         num: '964万'
-      }]
+      }],
+      swiperOptions: {
+        notNextTick: true,
+        autoplay: 100,
+        loop: true,
+        centeredSlides: true,
+        spaceBetween: 30,
+        pagination: '.swiper-pagination',
+        slidesPerView: 'auto',
+        paginationClickable: true
+      }
     }
   },
 
@@ -90,11 +104,17 @@ export default {
     let date = new Date().getDate()
     this.tabB[1].date = date
   },
-
+  mounted () {
+    // var mySwiper = new Swiper('.swiper-container', {
+    //   loop: true
+    // })
+  },
   components: {
     Header,
     slidebar,
-    Footer
+    Footer,
+    swiper,
+    swiperSlide
   }
 }
 </script>
@@ -116,7 +136,6 @@ export default {
     text-decoration: none
     color: #232927
     font-size: .15rem
-    border-bottom: 2px solid #ffffff
     line-height: .35rem
     padding: 0 .05rem
   .router-link-active

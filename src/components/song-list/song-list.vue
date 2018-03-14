@@ -60,51 +60,56 @@
       </div>
     </div>
   </div>
+  <!-- <chhoselist :data-list="songlist"></chhoselist> -->
 </div>
 </template>
 
 <script>
 import bus from '../../assets/bus'
+import chhoselist from './chooseList.vue'
 export default {
   data () {
     return {
       tabB: [
-        {title: '收藏',className: 'icon-add-project'},
-        {title: '评论',className: 'icon-msg'},
-        {title: '分享',className: 'icon-music'},
-        {title: '下载',className: 'icon-download'}
+        {title: '收藏', className: 'icon-add-project'},
+        {title: '评论', className: 'icon-msg'},
+        {title: '分享', className: 'icon-music'},
+        {title: '下载', className: 'icon-download'}
       ],
       songlist: [
-        {name:'Gotta Have You',singer:'The Weepies',zhuanji:'Say I Am You'},
-        {name:'你要的全拿走',singer:'胡彦斌',zhuanji: '覅忒好'},
-        {name:'Love Paradise',singer:'陈慧琳',zhuanji: 'Stylish Index(第2版)'},
-        {name:'Today Was a Fairytale',singer:'Taylor Swift',zhuanji: 'Today Was a Fairytale - Single'},
-        {name:'For him',singer:'Troye Sivan/Allday',zhuanji: 'Blue Neighbourhood(Deluxe)'},
-        {name:'For him',singer:'Troye Sivan/Allday',zhuanji: 'Blue Neighbourhood(Deluxe)'},
-        {name:'...Ready For It? (BloodPop® Remix)',singer:'Taylor Swift/BloodPop',zhuanji: '...Ready For It? (BloodPop® Remix)'},
-        {name:'For him',singer:'Troye Sivan/Allday',zhuanji: 'Blue Neighbourhood(Deluxe)'},
-        {name:'...Ready For It? (BloodPop® Remix)',singer:'Taylor Swift/BloodPop',zhuanji: '...Ready For It? (BloodPop® Remix)'},
-        {name:'For him',singer:'Troye Sivan/Allday',zhuanji: 'Blue Neighbourhood(Deluxe)'},
-        {name:'Today Was a Fairytale',singer:'Taylor Swift',zhuanji: 'Today Was a Fairytale - Single'},
-        {name:'Gotta Have You',singer:'The Weepies',zhuanji:'Say I Am You'},
-        {name:'你要的全拿走',singer:'胡彦斌',zhuanji: '覅忒好'},
-        {name:'Love Paradise',singer:'陈慧琳',zhuanji: 'Stylish Index(第2版)'}
+        {name: 'Gotta Have You', singer: 'The Weepies', zhuanji: 'Say I Am You'},
+        {name: '你要的全拿走', singer: '胡彦斌', zhuanji: '覅忒好'},
+        {name: 'Love Paradise', singer: '陈慧琳', zhuanji: 'Stylish Index(第2版)'},
+        {name: 'Today Was a Fairytale', singer: 'Taylor Swift', zhuanji: 'Today Was a Fairytale - Single'},
+        {name: 'For him', singer: 'Troye Sivan/Allday', zhuanji: 'Blue Neighbourhood(Deluxe)'},
+        {name: 'For him', singer: 'Troye Sivan/Allday', zhuanji: 'Blue Neighbourhood(Deluxe)'},
+        {name: '...Ready For It? (BloodPop® Remix)', singer: 'Taylor Swift/BloodPop', zhuanji: '...Ready For It? (BloodPop® Remix)'},
+        {name: 'For him', singer: 'Troye Sivan/Allday', zhuanji: 'Blue Neighbourhood(Deluxe)'},
+        {name: '...Ready For It? (BloodPop® Remix)', singer: 'Taylor Swift/BloodPop', zhuanji: '...Ready For It? (BloodPop® Remix)'},
+        {name: 'For him', singer: 'Troye Sivan/Allday', zhuanji: 'Blue Neighbourhood(Deluxe)'},
+        {name: 'Today Was a Fairytale', singer: 'Taylor Swift', zhuanji: 'Today Was a Fairytale - Single'},
+        {name: 'Gotta Have You', singer: 'The Weepies', zhuanji: 'Say I Am You'},
+        {name: '你要的全拿走', singer: '胡彦斌', zhuanji: '覅忒好'},
+        {name: 'Love Paradise', singer: '陈慧琳', zhuanji: 'Stylish Index(第2版)'}
       ],
       showList: false,
-      songTitle: '歌单',
+      songTitle: '歌单'
     }
   },
   mounted () {
-    bus.$on('showList', res => (this.showList = res[1],this.songTitle = res[0]))
+    bus.$on('showList', res => (this.showList = res[1], this.songTitle = res[0]))
   },
-  methods : {
+  methods: {
     windowScroll (event) {
       let songHeader = this.$refs.songHeader.clientHeight
       let contentT = this.$refs.contentT.clientHeight
-      let scrollTop =  event.target.scrollTop
+      let scrollTop = event.target.scrollTop
       let opacity = scrollTop / (contentT - songHeader) > 1 ? 1 : scrollTop / (contentT - songHeader)
       this.$refs.headImg.style.opacity = opacity
     }
+  },
+  components: {
+    chhoselist
   }
 }
 </script>

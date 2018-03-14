@@ -33,30 +33,27 @@ export default {
       let that = this
       var ranges = setInterval(() => {
         if (num < 100) {
-          num ++
+          num++
           that.$refs.progressRange.style.width = `${num}%`
         } else {
           clearInterval(ranges)
         }
-      },1000)
+      }, 1000)
     },
     mouseDown (event) {
       console.log(event)
-      console.log("start")
     },
     mouseMove (event) {
       let pageX = event.targetTouches[0].pageX
       let boxLeftX = this.$refs.progressBox.offsetLeft
       let boxWidth = this.$refs.progressBox.offsetWidth
       let progressBtn = this.$refs.progressBtn.clientWidth
-      let x = Math.floor((pageX - boxLeftX)/ boxWidth * 100)
+      let x = Math.floor((pageX - boxLeftX) / boxWidth * 100)
       x = x > 100 ? 100 : x
       x = x < 0 ? 0 : x
-      let y = `calc(${x}% - progressBtn/2)`
-      this.$refs.progressBtn.style.left = y
+      this.$refs.progressBtn.style.left = `${x}%`
     },
     mouseEnd (event) {
-      console.log("ending")
       console.log(event)
     }
   }
