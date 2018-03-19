@@ -1,5 +1,6 @@
 <template>
   <div>
+    <audio autoplay="true" ref="audio" @timeupdate="updateTime" src="http://m10.music.126.net/20180319162629/2633981631305365674c831c33203a34/ymusic/9321/203d/0400/b9f0d774e6b1503f08d475bb1a64f0d8.mp3"></audio>
     <div class="box-circle" ref="boxCircle">
       <div class="box-img">
         <img src="/static/images/demo9.jpg" alt="">
@@ -14,6 +15,9 @@
       </div>
       <span>4:15</span>
     </div>
+
+    <span style="display:inline-block;padding:.02rem .2rem;font-size: .14rem;border:2px solid" @click="paused">pause</span>
+    <span style="display:inline-block;padding:.02rem .2rem;font-size: .14rem;border:2px solid" @click="play">running</span>
   </div>
 </template>
 
@@ -21,41 +25,45 @@
 export default {
   data () {
     return {
-
+      'allTime': 0
     }
   },
   mounted () {
-    this.range()
   },
   methods: {
-    range () {
-      let num = 1
-      let that = this
-      var ranges = setInterval(() => {
-        if (num < 100) {
-          num++
-          that.$refs.progressRange.style.width = `${num}%`
-        } else {
-          clearInterval(ranges)
-        }
-      }, 1000)
+    paused () {
+      this.$refs.audio.pause()
+      this.$refs.boxCircle.style.animationPlayState = 'paused'
     },
-    mouseDown (event) {
-      console.log(event)
+
+    play () {
+      this.$refs.audio.play()
+      this.$refs.boxCircle.style.animationPlayState = 'running'
     },
-    mouseMove (event) {
-      let pageX = event.targetTouches[0].pageX
-      let boxLeftX = this.$refs.progressBox.offsetLeft
-      let boxWidth = this.$refs.progressBox.offsetWidth
-      let progressBtn = this.$refs.progressBtn.clientWidth
-      let x = Math.floor((pageX - boxLeftX) / boxWidth * 100)
-      x = x > 100 ? 100 : x
-      x = x < 0 ? 0 : x
-      this.$refs.progressBtn.style.left = `${x}%`
+
+    updateTime(e) {
+      let currentTime = event.target.currentTime
+      let duration = event.target.duration
+      let num = currentTime / duration * 100
+      num === 100 ? this.$refs.boxCircle.style.animationPlayState = 'paused' : this.$refs.boxCircle.style.animationPlayState = 'running'
+      this.$refs.progressRange.style.width = `${num}%`
     },
-    mouseEnd (event) {
-      console.log(event)
-    }
+    // mouseDown (event) {
+    //   console.log(event)
+    // },
+    // mouseMove (event) {
+    //   let pageX = event.targetTouches[0].pageX
+    //   let boxLeftX = this.$refs.progressBox.offsetLeft
+    //   let boxWidth = this.$refs.progressBox.offsetWidth
+    //   let progressBtn = this.$refs.progressBtn.clientWidth
+    //   let x = Math.floor((pageX - boxLeftX) / boxWidth * 100)
+    //   x = x > 100 ? 100 : x
+    //   x = x < 0 ? 0 : x
+    //   this.$refs.progressBtn.style.left = `${x}%`
+    // },
+    // mouseEnd (event) {
+    //   console.log(event)
+    // }
   }
 }
 </script>
