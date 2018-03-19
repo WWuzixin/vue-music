@@ -1,6 +1,6 @@
 <template>
   <div>
-    <audio autoplay="true" ref="audio" @timeupdate="updateTime" src="http://m10.music.126.net/20180319162629/2633981631305365674c831c33203a34/ymusic/9321/203d/0400/b9f0d774e6b1503f08d475bb1a64f0d8.mp3"></audio>
+    <audio autoplay="true" ref="audio" @timeupdate="updateTime" src="http://fs.w.kugou.com/201803192223/0f26966281ad8eff60748cdab1cdbb41/G011/M02/0D/09/q4YBAFT9poiAU8LsADOgUryayxM308.mp3"></audio>
     <div class="box-circle" ref="boxCircle">
       <div class="box-img">
         <img src="/static/images/demo9.jpg" alt="">
@@ -44,9 +44,11 @@ export default {
     updateTime(e) {
       let currentTime = event.target.currentTime
       let duration = event.target.duration
+      let progressBtn = this.$refs.progressBtn.clientWidth
       let num = currentTime / duration * 100
-      num === 100 ? this.$refs.boxCircle.style.animationPlayState = 'paused' : this.$refs.boxCircle.style.animationPlayState = 'running'
+      num === 100 ? this.$refs.boxCircle.style.animationPlayState = 'paused' : ''
       this.$refs.progressRange.style.width = `${num}%`
+      this.$refs.progressBtn.style.left = `${num}%`
     },
     // mouseDown (event) {
     //   console.log(event)
@@ -124,7 +126,6 @@ export default {
   display: block
   position: absolute
   top: 50%
-  left: -.07rem
   transform: translateY(-50%)
   z-index: 5
 

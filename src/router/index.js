@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import index from '@/components/HelloWorld'
+import player from '@/components/HelloWorld'
 import mymusic from '@/view/mymusic/mymusic'
 import findmusic from '@/view/findmusic/findmusic'
 
@@ -11,8 +11,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'index',
-      component: index
+      name: 'mymusic',
+      component: mymusic
     },
     {
       path: '/findmusic',
@@ -23,6 +23,11 @@ export default new Router({
       path: '/mymusic',
       name: 'mymusic',
       component: mymusic
+    },
+    {
+      path: '/player',
+      name: 'player',
+      component: player
     }
   ]
 })

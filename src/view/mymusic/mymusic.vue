@@ -51,7 +51,7 @@
           <p>删除</p>
         </div>
       </div>
-      <div class="mask" v-show="isShow3" @click.="isShow3 = !isShow3"></div>
+      <div class="mask" v-show="isShow3" @click="isShow3 = !isShow3"></div>
     </div>
   </div>
   <songlist></songlist>
