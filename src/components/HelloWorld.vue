@@ -41,6 +41,7 @@ export default {
       this.$refs.boxCircle.style.animationPlayState = 'running'
     },
 
+    //播放器进度条
     updateTime(e) {
       let currentTime = event.target.currentTime
       let duration = event.target.duration
@@ -50,22 +51,29 @@ export default {
       this.$refs.progressRange.style.width = `${num}%`
       this.$refs.progressBtn.style.left = `${num}%`
     },
-    // mouseDown (event) {
-    //   console.log(event)
-    // },
-    // mouseMove (event) {
-    //   let pageX = event.targetTouches[0].pageX
-    //   let boxLeftX = this.$refs.progressBox.offsetLeft
-    //   let boxWidth = this.$refs.progressBox.offsetWidth
-    //   let progressBtn = this.$refs.progressBtn.clientWidth
-    //   let x = Math.floor((pageX - boxLeftX) / boxWidth * 100)
-    //   x = x > 100 ? 100 : x
-    //   x = x < 0 ? 0 : x
-    //   this.$refs.progressBtn.style.left = `${x}%`
-    // },
-    // mouseEnd (event) {
-    //   console.log(event)
-    // }
+
+    mouseDown (event) {
+      console.log(event)
+      this.$refs.boxCircle.style.animationPlayState = 'paused'
+      this.$refs.audio.pause()
+    },
+    mouseMove (event) {
+      let pageX = event.targetTouches[0].pageX
+      let boxLeftX = this.$refs.progressBox.offsetLeft
+      let boxWidth = this.$refs.progressBox.offsetWidth
+      let progressBtn = this.$refs.progressBtn.clientWidth
+      let x = (pageX - boxLeftX) / boxWidth * 100
+      x = x > 100 ? 100 : x
+      x = x < 0 ? 0 : x
+      this.$refs.progressBtn.style.left = `${x}%`
+      this.$refs.progressRange.style.width = `${x}%`
+      console.log(x)
+    },
+    mouseEnd (event) {
+      console.log(event)
+      this.$refs.boxCircle.style.animationPlayState = 'running'
+      this.$refs.audio.play()
+    }
   }
 }
 </script>
