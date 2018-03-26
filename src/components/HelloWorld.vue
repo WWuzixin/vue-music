@@ -1,42 +1,53 @@
 <template>
-  <div>
-    <audio autoplay="true" ref="audio" @timeupdate="updateTime" src="http://fs.w.kugou.com/201803192223/0f26966281ad8eff60748cdab1cdbb41/G011/M02/0D/09/q4YBAFT9poiAU8LsADOgUryayxM308.mp3"></audio>
-    <div class="box-circle" ref="boxCircle">
-      <div class="box-img">
-        <img src="/static/images/demo9.jpg" alt="">
+<div>
+  <audio autoplay="true" ref="audio" @timeupdate="updateTime" src="http://fs.w.kugou.com/201803192223/0f26966281ad8eff60748cdab1cdbb41/G011/M02/0D/09/q4YBAFT9poiAU8LsADOgUryayxM308.mp3"></audio>
+  <div class="content">
+    <div class="bgImg" style="background-image: url('/static/images/demo9.jpg')"></div>
+    <div style="position: fixed;top: 0;left: 0;width: 100%;z-index: 10">
+      <div class="box-circle" ref="boxCircle">
+        <div class="box-img">
+          <img src="/static/images/demo9.jpg" alt="">
+        </div>
       </div>
-    </div>
 
-    <div class="progress">
-      <span>00:00</span>
-      <div class="progress-box" ref="progressBox">
-        <span class="progress-btn" ref="progressBtn" @mousedown.self="mouseDown" @touchstart.self="mouseDown" @touchmove.self="mouseMove" @touchend.self="mouseEnd"></span>
-        <span class="progress-range" ref="progressRange"></span>
+      <div class="progress">
+        <span>{{current}}</span>
+        <div class="progress-box" ref="progressBox">
+          <span class="progress-btn" ref="progressBtn" @mousedown.self="mouseDown" @touchstart.self="mouseDown" @touchmove.self="mouseMove" @touchend.self="mouseEnd"></span>
+          <span class="progress-range" ref="progressRange"></span>
+        </div>
+        <span>{{allTime}}</span>
       </div>
-      <span>4:15</span>
-    </div>
 
-    <span style="display:inline-block;padding:.02rem .2rem;font-size: .14rem;border:2px solid" @click="paused">pause</span>
-    <span style="display:inline-block;padding:.02rem .2rem;font-size: .14rem;border:2px solid" @click="play">running</span>
+      <span style="display:inline-block;padding:.02rem .2rem;font-size: .14rem;border:2px solid;z-index: 10" @click="paused">pause</span>
+      <span style="display:inline-block;padding:.02rem .2rem;font-size: .14rem;border:2px solid;z-index: 10" @click="play">running</span>
+    </div>
   </div>
+
+
+</div>
 </template>
 
 <script>
 export default {
-  data () {
+  data() {
     return {
-      'allTime': 0
+      'allTime': '',
+      'current': '',
+      'playTime': 0
     }
   },
-  mounted () {
+  mounted() {
+    this.$refs.audio.volume = '0.1'
+
   },
   methods: {
-    paused () {
+    paused() {
       this.$refs.audio.pause()
       this.$refs.boxCircle.style.animationPlayState = 'paused'
     },
 
-    play () {
+    play() {
       this.$refs.audio.play()
       this.$refs.boxCircle.style.animationPlayState = 'running'
     },
@@ -50,14 +61,15 @@ export default {
       num === 100 ? this.$refs.boxCircle.style.animationPlayState = 'paused' : ''
       this.$refs.progressRange.style.width = `${num}%`
       this.$refs.progressBtn.style.left = `${num}%`
+      this.allTime = this.timeCalc(duration.toFixed())
+      this.current = this.timeCalc(currentTime.toFixed())
     },
 
-    mouseDown (event) {
-      console.log(event)
+    mouseDown(event) {
       this.$refs.boxCircle.style.animationPlayState = 'paused'
       this.$refs.audio.pause()
     },
-    mouseMove (event) {
+    mouseMove(event) {
       let pageX = event.targetTouches[0].pageX
       let boxLeftX = this.$refs.progressBox.offsetLeft
       let boxWidth = this.$refs.progressBox.offsetWidth
@@ -67,12 +79,22 @@ export default {
       x = x < 0 ? 0 : x
       this.$refs.progressBtn.style.left = `${x}%`
       this.$refs.progressRange.style.width = `${x}%`
-      console.log(x)
+      this.playTime = (x * 2).toFixed()
+      this.current = this.timeCalc(this.playTime)
     },
-    mouseEnd (event) {
-      console.log(event)
+    mouseEnd(event) {
       this.$refs.boxCircle.style.animationPlayState = 'running'
       this.$refs.audio.play()
+      this.$refs.audio.currentTime = this.playTime
+    },
+
+    // 播放时间计算
+    timeCalc(time) {
+      let min = time / 60
+      let sec = time % 60
+      sec = sec < 10 ? `0${sec}` : sec
+      min = min < 10 ? `0${Math.floor(min)}` : Math.floor(min)
+      return `${min}:${sec}`
     }
   }
 }
@@ -86,6 +108,7 @@ export default {
   border-radius: 50%
   margin: 0 auto
   animation: goRotate 16s linear infinite 0.1s
+  z-index: 10
 
 @keyframes goRotate
   0%
@@ -107,6 +130,7 @@ export default {
   top: 50%
   transform: translate(-50%,-50%)
   overflow: hidden
+  z-index: 10
   & img
     width: 100%
     height: 100%
@@ -117,14 +141,16 @@ export default {
   display: flex
   align-items: center
   justify-content: space-between
+  z-index: 10
   span
     font-size: .14rem
 
 .progress-box
-  width: 2.2rem
+  width: 2rem
   height: .02rem
   border: .01rem solid #e5e7e8
   position: relative
+  z-index: 10
 
 .progress-btn
   width: .14rem
@@ -135,7 +161,7 @@ export default {
   position: absolute
   top: 50%
   transform: translateY(-50%)
-  z-index: 5
+  z-index: 10
 
 .progress-range
   background: #c62f2f
@@ -143,4 +169,18 @@ export default {
   position: absolute
   top: 0
   left: 0
+  z-index: 10
+
+.bgImg
+  width: 100%
+  height: 100%
+  position: fixed
+  top: 0
+  left: 0
+  bottom: 0
+  right: 0
+  background-position: center center
+  background-size: cover
+  z-index: 1
+  filter: blur(10px)
 </style>
